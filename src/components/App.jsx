@@ -23,8 +23,7 @@ export class App extends Component {
     return positive;
   }
 
-  onLeaveFeedback = event => {
-    const name = event.target.dataset.id;
+  onLeaveFeedback = name => {
     this.setState(prevState => {
       return { [name]: prevState[name] + 1 };
     });
@@ -32,10 +31,14 @@ export class App extends Component {
   render() {
     let total = this.countTotalFeedback();
     let positive = this.countPositiveFeedbackPercentage() || 0;
+    let options = Object.keys(this.state);
     return (
       <main>
         <Section title="Please Leave Feedback">
-          <FeedbackOptions onLeaveFeedback={this.onLeaveFeedback} />
+          <FeedbackOptions
+            options={options}
+            onLeaveFeedback={this.onLeaveFeedback}
+          />
         </Section>
 
         {total ? (
